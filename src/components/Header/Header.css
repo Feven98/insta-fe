@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+  }
+.nav{
+    border: 4px solid black;
+    border-radius: 20px;
+    background-color: cornflowerblue;
+    /* height: px; */
+    width:100%;
+    display:flex;
+    justify-content: flex-start;
+    overflow: auto;
+  }
+
+.logo{
+    height:9vh;
+    margin: 10px
+}
