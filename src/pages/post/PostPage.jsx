@@ -49,8 +49,14 @@ const PostPage = (props) =>{
   useEffect(() => {
     getPost()
   }, [])
-  return<div><h1>Post page</h1>
-  {loading()}</div>
+  return(
+  <div>
+    <section className="Profile-list">
+  
+{post && post.length ? loaded() : loading()}
+  </section>
+  </div>
+  )
 }
 
 export default PostPage
