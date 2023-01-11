@@ -1,8 +1,8 @@
 import { useState, useEffect} from "react"
-
+import './PostPage.css'
 const PostPage = (props) =>{
     // react state
-  const [profile, setProfile] = useState([])
+  const [post, setPost] = useState([])
 
   // fetch endpoint
   const BASE_URL = "http://localhost:4000/post"
@@ -14,17 +14,43 @@ const PostPage = (props) =>{
         const allPost = await response.json()
         // assuming no errors - translate to JS 
         console.log(allPost)
-        setProfile(allPost)
+        setPost(allPost)
         // store that data (from api) in react state
       } catch (err) {
         console.log(err)
       }
   }
+
+  const loaded = () => {
+    return post?. map((post)=>{
+        return(
+            <div key={post._id}>
+            <h1>{post.caption}</h1>
+            <h2>{post.location}</h2>
+            <img src={post.image} />
+            </div>
+        )
+    })
+  }
+  const loading = () => (
+    <section className="people-list">
+      <h1>
+        Loading...
+        <span>
+          <img
+            className="spinner"
+            src="https://freesvg.org/img/1544764567.png"
+          />{" "}
+        </span>
+      </h1>
+    </section>
+  );
   // useEffect 
   useEffect(() => {
     getPost()
   }, [])
-  return<div><h1>Post page</h1></div>
+  return<div><h1>Post page</h1>
+  {loading()}</div>
 }
 
 export default PostPage
