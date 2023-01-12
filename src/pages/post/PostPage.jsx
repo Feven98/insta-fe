@@ -1,10 +1,13 @@
 import { useState, useEffect} from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
+import { getUserToken } from "../../utils/authToken";
 import './PostPage.css'
 
 
 const PostPage = (props) =>{
+
+  const token = getUserToken()
     const [user, setUser] = useState([])
 
     // state to hold formData
@@ -45,7 +48,7 @@ const PostPage = (props) =>{
         method: "Post",
         headers: {
           "Content-Type": "application/json",
-        //   "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(currentUser)
       }
