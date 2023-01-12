@@ -1,76 +1,69 @@
 import { useState, useEffect} from "react"
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import './PostPage.css'
+
+
 const PostPage = (props) =>{
+    const [user, setUser] = useState([])
 
-    // const token = getUserToken()
-    // react state
-  const [post, setPost] = useState([])
-  const [newPost, setNewPost] = useState({
-    image: "",
-    caption: "",
-    location: "",
-  });
-  // fetch endpoint
-  const BASE_URL = "https://instagraph-p3-be.herokuapp.com/post"
-// react state data hold
-
-  const getPost = async () => {
-    try {
-        const response = await fetch(BASE_URL)
-        // fetch grabs the data from API - (mongo)
-        const allPost = await response.json()
-        // assuming no errors - translate to JS 
-        console.log(allPost)
-        setPost(allPost)
-        // store that data (from api) in react state
-      } catch (err) {
-        console.log(err)
-      }
-  }
-
-  // Creating handlechabge for the form
-  const handleChange = (e) => {
-
-    const userInput = {...newPost}
-    // console.group(e.target.name, e.target.value)
-    userInput [e.target.name]= e.target.value
-    setNewPost(userInput)
-    // setNewPost({ ...newPost, [e.target.name]: e.target.value });
-}
-
- // Creating handle submit for the form
- const handleSubmit = async (e) => {
-    e.preventDefault()
-    // capturing our local state
-    const currentState = {...newPost}
-    try{
-        const requestOptions = {
-            method: "POST",
-            header: {
-              "Content-Type" : "application/json",
-            //   "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(currentState)
-    }
-    console.log(JSON.stringify(currentState))
-        const response = await fetch(BASE_URL, requestOptions)
-        console.log(BASE_URL,requestOptions )
-         // fetch grabs the data from API - (mongo)
-        const createPost = await response.json()
-        console.log(createPost)
-    setPost([...post, createPost])
-    // reset new post state
-    setNewPost({
+    // state to hold formData
+    const [newForm, setNewForm] = useState({
+        // username: "",
         image: "",
-      caption: "",
-      location: "",
-      })
-    }catch(err){
-        console.log(err)
-      }
-     }
+        caption: "",
+    })
+    const BASE_URL = `https://instagraph-p3-be.herokuapp.com/post`
+    const getPost = async () => {
+        try {
+            const response = await fetch(BASE_URL)
+            // fetch grabs the data from API - (mongo)
+            const allUser = await response.json()
+            // assuming no errors - translate to JS 
+            console.log(allUser)
+            setUser(allUser)
+            // store that data (from api) in react state
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
+    // handleChange function for form
+  const handleChange = (e) => {
+    console.log(newForm)
+    const userInput = { ...newForm }
+    // console.log(e.target.username)
+    userInput[e.target.name] = e.target.value
+    setNewForm(userInput);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const currentUser = { ...newForm }
+    try {
+      const requestOptions = {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        //   "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(currentUser)
+      }
+      console.log(JSON.stringify(currentUser))
+      // const response = await fetch(BASE_URL, requestOptions)
+      const response = await fetch(BASE_URL, requestOptions)
+      const createPerson = await response.json()
+      console.log(createPerson)
+      setUser([...user, createPerson])
+      setNewForm({
+        username: "",
+        image: "",
+        caption: "",
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const loaded = () => {
     return(<>
     <section className="createPost-profile">
@@ -84,7 +77,7 @@ const PostPage = (props) =>{
                 id="image"
                 name="image"
                 placeholder="Enter image URL"
-                value={newPost.image}
+                value={newForm.image}
                 onChange={handleChange}
               />
             </label>
@@ -97,7 +90,7 @@ const PostPage = (props) =>{
                 id="caption"
                 name="caption"
                 placeholder="Enter caption"
-                value={newPost.caption}
+                value={newForm.caption}
                 onChange={handleChange}
               />
             </label>
@@ -110,7 +103,7 @@ const PostPage = (props) =>{
                 id="location"
                 name="location"
                 placeholder="Enter location"
-                value={newPost.location}
+                value={newForm.location}
                 onChange={handleChange}
               />
             </label>
@@ -120,13 +113,13 @@ const PostPage = (props) =>{
       </form>
     </section>
     <section className="user-list">
-    { post?. map((post)=>{
+    { user?. map((user)=>{
         return(
-            <Link key={post._id} to={`/post/${post._id}`}>
+            <Link key={user._id} to={`/post/${user._id}`}>
             <div className="profile-card">
-            <h1>{post.caption}</h1>
-            <h2>{post.location}</h2>
-            <img src={post.image} />
+            <h1>{user.caption}</h1>
+            <h2>{user.location}</h2>
+            <img src={user.image} />
             </div>
             </Link>
         )
@@ -137,6 +130,11 @@ const PostPage = (props) =>{
         
     )
   }
+  
+  // useEffect 
+  useEffect(() => {
+    getPost()
+  }, [])
   const loading = () => (
     <section className="people-list">
       <h1>
@@ -150,18 +148,18 @@ const PostPage = (props) =>{
       </h1>
     </section>
   );
-  // useEffect 
-  useEffect(() => {
-    getPost()
-  }, [])
-  return(
-  <div>
-    <section className="Profile-list">
-  
-{post && post.length ? loaded() : loading()}
-  </section>
-  </div>
-  )
+
+
+return(
+      <div>
+        <section className="Profile-list">
+      
+    {user && user.length ? loaded() : loading()}
+      </section>
+      </div>
+      )
 }
 
+
 export default PostPage
+
