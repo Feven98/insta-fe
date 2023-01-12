@@ -1,6 +1,9 @@
 import { useState, useEffect} from "react"
+import { Link } from "react-router-dom";
 import './PostPage.css'
 const PostPage = (props) =>{
+
+    // const token = getUserToken()
     // react state
   const [post, setPost] = useState([])
   const [newPost, setNewPost] = useState({
@@ -30,17 +33,49 @@ const PostPage = (props) =>{
   const handleChange = (e) => {
 
     const userInput = {...newPost}
-    console.group(e.target.name, e.target.value)
+    // console.group(e.target.name, e.target.value)
     userInput [e.target.name]= e.target.value
     setNewPost(userInput)
     // setNewPost({ ...newPost, [e.target.name]: e.target.value });
 }
 
+ // Creating handle submit for the form
+ const handleSubmit = async (e) => {
+    e.preventDefault()
+    // capturing our local state
+    const currentState = {...newPost}
+    try{
+        const requestOptions = {
+            method: "POST",
+            header: {
+              "Content-Type" : "application/json",
+            //   "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(currentState)
+    }
+    console.log(JSON.stringify(currentState))
+        const response = await fetch(BASE_URL, requestOptions)
+        console.log(BASE_URL,requestOptions )
+         // fetch grabs the data from API - (mongo)
+        const createPost = await response.json()
+        console.log(createPost)
+    setPost([...post, createPost])
+    // reset new post state
+    setNewPost({
+        image: "",
+      caption: "",
+      location: "",
+      })
+    }catch(err){
+        console.log(err)
+      }
+     }
+
   const loaded = () => {
     return(<>
     <section className="createPost-profile">
     <h2>Create a Post Here</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
       <div>
             <label htmlFor="image">
               Image
@@ -75,7 +110,7 @@ const PostPage = (props) =>{
                 id="location"
                 name="location"
                 placeholder="Enter location"
-                value={newPost.comment}
+                value={newPost.location}
                 onChange={handleChange}
               />
             </label>
@@ -87,11 +122,13 @@ const PostPage = (props) =>{
     <section className="user-list">
     { post?. map((post)=>{
         return(
-            <div key={post._id}>
+            <Link key={post._id} to={`/post/${post._id}`}>
+            <div className="profile-card">
             <h1>{post.caption}</h1>
             <h2>{post.location}</h2>
             <img src={post.image} />
             </div>
+            </Link>
         )
     })
   }

@@ -1,0 +1,34 @@
+.user-list a{
+    text-decoration: none;
+    color: rgb(62, 12, 12);
+  }
+
+.profile-card {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  background-color: azure;
+}
+.profile-card img{
+   max-height: 300px;
+   max-width: 700px;
+}
+.delete {
+    border: 1px solid #ddd;
+    background-color: transparent;
+    padding: 8px 24px;
+    border-radius: 4px;
+    transition: transform .5s ease-in-out;
+    text-align: center;
+}
+.delete:hover {
+    border: 1px solid #ddd;
+    background-color: black;
+    color: white;
+    transform: scale(1.1, 1.1);
+}
