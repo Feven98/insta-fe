@@ -46,7 +46,8 @@ function PostEdit(props) {
             // navigate(`/user/${id}`)
         } catch (err) {
             console.log(err)
-            navigate(URL)
+            // navigate(URL)
+            navigate('/')
         }
     }
 
@@ -72,7 +73,7 @@ function PostEdit(props) {
             const response = await fetch(URL, options)
             const deletedPost = await response.json()
             // console.log(deletedPerson)
-            navigate(`/post/${id}`)
+            // navigate(`/post/${id}`)
 
             // navigate will change the browser's URL
             // which will cause react-router to "redirect" to home page;
@@ -81,7 +82,8 @@ function PostEdit(props) {
 
         } catch (err) {
             console.log(err)
-            navigate(URL)
+            // navigate(URL)
+            navigate('/post')
         }
     }
 
