@@ -5,7 +5,7 @@ const PostPage = (props) =>{
   const [post, setPost] = useState([])
 
   // fetch endpoint
-  const BASE_URL = "http://localhost:4000/post"
+  const BASE_URL = "https://instagraph-p3-be.herokuapp.com/post"
 
   const getPost = async () => {
     try {
