@@ -3,9 +3,14 @@ import './PostPage.css'
 const PostPage = (props) =>{
     // react state
   const [post, setPost] = useState([])
-
+  const [newPost, setNewPost] = useState({
+    image: "",
+    caption: "",
+    location: "",
+  });
   // fetch endpoint
   const BASE_URL = "https://instagraph-p3-be.herokuapp.com/post"
+// react state data hold
 
   const getPost = async () => {
     try {
@@ -22,7 +27,55 @@ const PostPage = (props) =>{
   }
 
   const loaded = () => {
-    return post?. map((post)=>{
+    return(<>
+    <section className="createPost-profile">
+    <h2>Create a Post Here</h2>
+      <form>
+      <div>
+            <label htmlFor="image">
+              Image
+              <input
+                type="text"
+                id="image"
+                name="image"
+                placeholder="Enter image URL"
+                value={newPost.image}
+                // onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="caption">
+              Caption
+              <input
+                type="text"
+                id="caption"
+                name="caption"
+                placeholder="Enter caption"
+                value={newPost.caption}
+                // onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="location">
+              Location
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Enter location"
+                value={newPost.comment}
+                // onChange={handleChange}
+              />
+            </label>
+          <br/>
+          <input className="createPost" type="Submit" value="Create a New Post"/>
+          </div>
+      </form>
+    </section>
+    <section className="user-list">
+    { post?. map((post)=>{
         return(
             <div key={post._id}>
             <h1>{post.caption}</h1>
@@ -31,6 +84,11 @@ const PostPage = (props) =>{
             </div>
         )
     })
+  }
+  </section>
+    </>
+        
+    )
   }
   const loading = () => (
     <section className="people-list">

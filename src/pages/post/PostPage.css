@@ -17,3 +17,33 @@
     transform: rotateZ(360deg);
   }
 }
+.createPost-profile{
+    text-align: center;
+    background-color: beige;
+    border-radius: 20px;
+  }
+  .createPost-profile input{
+      border-radius: 20px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+  }
+  .user-list a{
+      text-decoration: none;
+      color: rgb(62, 12, 12);
+    }
+  
+  .profile-card {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    background-color: azure;
+  }
+  .profile-card img{
+     max-height: 300px;
+     max-width: 700px;
+  }
