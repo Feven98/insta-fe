@@ -1,7 +1,7 @@
 import { getUserToken,setUserToken, clearUserToken } from "../utils/authToken"
 import { UserContext} from '../data'
 import { useContext } from "react"
-// import RegisterForm from "../components/RegisterForm"
+import RegisterForm from "../components/RegisterForm"
 // import LoginForm from "../components/LoginForm"
 
 function Auth(props){
@@ -44,8 +44,50 @@ const registerForm = async (data) => {
         setAuth(false);
     }
 }
+// login form
+const loginUser = async (data) => {
+    try {
+        const configs = {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+
+        const response = await fetch(
+            "https://fev-sol-project3.herokuapp.com/auth/login",
+            configs
+        )
+
+        const currentUser = await response.json()
+        //console.log(currentUser)
+
+        if (currentUser.token) {
+            // sets local storage
+            setUserToken(currentUser.token)
+            // put the returned user object in state
+            setUser(currentUser.user)
+            setAuth(currentUser.isLoggedIn)
+            setUser(currentUser.home)
+            console.log(currentUser)
+            return currentUser
+        } else {
+            throw `Server Error: ${currentUser.statusText}`
+        }
+    } catch (err) {
+        console.log(err)
+        clearUserToken();
+        setAuth(false);
+    }
+}
+
     return (
-        <h1>Login / Register Page</h1>
+        <section className="login">
+<h1>Login / Register Page</h1>
+            <RegisterForm signUp={registerForm}/>
+            {/* <LoginForm signIn={loginUser}/> */}
+        </section>
     )
 }
 
