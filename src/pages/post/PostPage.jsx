@@ -26,6 +26,16 @@ const PostPage = (props) =>{
       }
   }
 
+  // Creating handlechabge for the form
+  const handleChange = (e) => {
+
+    const userInput = {...newPost}
+    console.group(e.target.name, e.target.value)
+    userInput [e.target.name]= e.target.value
+    setNewPost(userInput)
+    // setNewPost({ ...newPost, [e.target.name]: e.target.value });
+}
+
   const loaded = () => {
     return(<>
     <section className="createPost-profile">
@@ -40,7 +50,7 @@ const PostPage = (props) =>{
                 name="image"
                 placeholder="Enter image URL"
                 value={newPost.image}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -53,7 +63,7 @@ const PostPage = (props) =>{
                 name="caption"
                 placeholder="Enter caption"
                 value={newPost.caption}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -66,7 +76,7 @@ const PostPage = (props) =>{
                 name="location"
                 placeholder="Enter location"
                 value={newPost.comment}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </label>
           <br/>
