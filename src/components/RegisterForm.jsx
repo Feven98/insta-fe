@@ -13,7 +13,7 @@ const RegisterForm = ({ signUp }) => {
 
         if (createdUserToken) {
             // navigate(`/user/${input.id}`)
-            navigate("/user")
+            navigate("/post")
         } else {
             navigate("/")
         }

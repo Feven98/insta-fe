@@ -21,7 +21,7 @@ const token = getUserToken()
     const navigate = useNavigate()
 
 
-    const BASE_URL = `https://fev-sol-project3.herokuapp.com/user`
+    const BASE_URL = `"https://instagraph-p3-be.herokuapp.com/post`
 
     const getUser = async () => {
         console.log(BASE_URL)
@@ -70,7 +70,7 @@ const token = getUserToken()
         console.log(user.username)
         console.log(user)
         console.log(currentUser)
-        navigate("/user")
+        navigate("/post")
         // navigate(`/user/${user.id}`)
     } else {
         navigate("/")

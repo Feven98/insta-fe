@@ -2,7 +2,7 @@ import { getUserToken,setUserToken, clearUserToken } from "../utils/authToken"
 import { UserContext} from '../data'
 import { useContext } from "react"
 import RegisterForm from "../components/RegisterForm"
-// import LoginForm from "../components/LoginForm"
+import LoginForm from "../components/LoginForm"
 
 function Auth(props){
 
@@ -21,7 +21,7 @@ const registerForm = async (data) => {
         }
 
         const newUser = await fetch(
-            "https://fev-sol-project3.herokuapp.com/auth/register",
+            "https://instagraph-p3-be.herokuapp.com/auth/register",
             configs
         )
 
@@ -56,7 +56,7 @@ const loginUser = async (data) => {
         }
 
         const response = await fetch(
-            "https://fev-sol-project3.herokuapp.com/auth/login",
+            "https://instagraph-p3-be.herokuapp.com/auth/login",
             configs
         )
 
@@ -86,7 +86,7 @@ const loginUser = async (data) => {
         <section className="login">
 <h1>Login / Register Page</h1>
             <RegisterForm signUp={registerForm}/>
-            {/* <LoginForm signIn={loginUser}/> */}
+            <LoginForm signIn={loginUser}/>
         </section>
     )
 }
