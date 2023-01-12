@@ -1,4 +1,4 @@
-import {UserContext} from './userContext'
+import { UserContext } from "./UserContext";
 
 export {
     UserContext
