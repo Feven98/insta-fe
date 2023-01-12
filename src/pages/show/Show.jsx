@@ -2,13 +2,13 @@ import { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import { getUserToken } from '../../utils/authToken'
+import { getUserToken } from '../../utils/authToken'
 import './Show.css'
 
 const Show = (props) => {
     const [profile, setProfile] = useState(null)
     const [loading, setLoading] = useState(true)
-    // const token = getUserToken()
+    const token = getUserToken()
     const { id } = useParams()
     // create navigate
 
@@ -37,15 +37,20 @@ const removePost = async (e) => {
       method:"DELETE",
       header:{
         // Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Accept' : 'application/json',
+          "Content-Type": "application/json"
       }
     }
     const response = await fetch(URL, options)
     console.log(response)
     const deletePost = await response.json()
     console.log(deletePost)
-    navigate("/")
+    // navigate("/")
+    navigate(-1);
   } catch(err){
     console.log(err)
+    // navigate(URL)
   }
 }
 

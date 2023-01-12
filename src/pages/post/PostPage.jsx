@@ -45,10 +45,10 @@ const PostPage = (props) =>{
     const currentUser = { ...newForm }
     try {
       const requestOptions = {
-        method: "Post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          // "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(currentUser)
       }
@@ -59,7 +59,7 @@ const PostPage = (props) =>{
       console.log(createPerson)
       setUser([...user, createPerson])
       setNewForm({
-        username: "",
+
         image: "",
         caption: "",
       })
