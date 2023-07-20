@@ -43,7 +43,7 @@ function PostEdit(props) {
 
             setUser(updatedPost)
             setEditPost(updatedPost)
-            // navigate(`/user/${id}`)
+            navigate(`/post/${id}`)
         } catch (err) {
             console.log(err)
             // navigate(URL)
@@ -65,27 +65,6 @@ function PostEdit(props) {
         }
     }
 
-    const removePost = async () => {
-        try {
-            const options = {
-                method: "DELETE"
-            }
-            const response = await fetch(URL, options)
-            const deletedPost = await response.json()
-            // console.log(deletedPerson)
-            // navigate(`/post/${id}`)
-
-            // navigate will change the browser's URL
-            // which will cause react-router to "redirect" to home page;
-            // the Main will then re-render the People component
-            // upon mount People will fetch the updated index of people data
-
-        } catch (err) {
-            console.log(err)
-            // navigate(URL)
-            navigate('/post')
-        }
-    }
 
     useEffect(() => {
         getNewPost()
